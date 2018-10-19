@@ -18,15 +18,12 @@ def constriction(sheet, manager, face_id,
                  contract_rate=2,
                  critical_area=1e-2,
                  radial_tension=1.,
-                 nb_iteration=0,
-                 nb_iteration_max=20,
                  contract_neighbors=True,
                  critical_area_neighbors=10,
                  contract_span=2,
                  basal_contract_rate=1.001,
                  current_traction=0,
-                 max_traction=30,
-                 geom=SheetGeometry):
+                 max_traction=30):
 
     face = sheet.idx_lookup(face_id, 'face')
     if face is None:
@@ -50,8 +47,7 @@ def constriction(sheet, manager, face_id,
 
                 # remove cell which are not mesoderm
                 ectodermal_cell = sheet.face_df.loc[neighbors.face][
-                    sheet.face_df.loc[
-                        neighbors.face].is_mesoderm == False].id.values
+                    sheet.face_df.loc[neighbors.face].is_mesoderm == False].id.values
 
                 neighbors = neighbors.drop(
                     neighbors[neighbors.face.isin(ectodermal_cell)].index)
